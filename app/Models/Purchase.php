@@ -47,4 +47,8 @@ class Purchase extends Model
 
         return "PU-{$year}-{$nextNumber}";
     }
+
+    protected $casts = [
+        'purchase_date' => 'date',
+    ];
 }

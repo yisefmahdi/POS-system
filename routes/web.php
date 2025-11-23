@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DiscountCodeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -76,6 +77,30 @@ Route::middleware('auth')->group(function () {
 
         // حذف كود خصم
         Route::delete('/{discount_code}', [DiscountCodeController::class, 'destroy'])->name('discount-codes.destroy');
+    });
+
+    // فواتير المشتريات
+    Route::prefix('purchases')->group(function () {
+        // عرض كل الفواتير
+        Route::get('/', [PurchaseController::class, 'index'])->name('purchases.index');
+
+        // إنشاء فاتورة جديدة (واجهة)
+        Route::get('/create', [PurchaseController::class, 'create'])->name('purchases.create');
+
+        // حفظ فاتورة جديدة
+        Route::post('/', [PurchaseController::class, 'store'])->name('purchases.store');
+
+        // تعديل فاتورة
+        Route::get('/{purchase}/edit', [PurchaseController::class, 'edit'])->name('purchases.edit');
+
+        // تحديث فاتورة
+        Route::post('/{purchase}', [PurchaseController::class, 'update'])->name('purchases.update');
+
+        // عرض تفاصيل فاتورة
+        Route::get('/{id}', [PurchaseController::class, 'show'])->name('purchases.show');
+
+        // حذف فاتورة
+        Route::delete('/{purchase}', [PurchaseController::class, 'destroy'])->name('purchases.destroy');
     });
 });
 

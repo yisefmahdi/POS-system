@@ -19,7 +19,9 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="block px-3 py-2 rounded-lg hover:bg-gray-100">Klanten</a>
+                <a href="{{ route('purchases.index') }}" class="block px-3 py-2 rounded-lg hover:bg-gray-100">
+                    Purchases
+                </a>
             </li>
             <li>
                 <a href="#" class="block px-3 py-2 rounded-lg hover:bg-gray-100">Rapporten</a>

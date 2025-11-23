@@ -8,6 +8,39 @@
             <a href="{{ route('products.create') }}"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Add Product</a>
         </div>
+        <div class="mb-4 bg-white shadow-md rounded-xl p-4">
+            <form method="GET" action="{{ route('products.index') }}"
+                class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+                <!-- بحث حسب الاسم -->
+                <input type="text" name="name" value="{{ request('name') }}" placeholder="Product Name"
+                    class="p-2 border rounded-xl w-full">
+
+                <!-- بحث حسب الباركود -->
+                <input type="text" name="barcode" value="{{ request('barcode') }}" placeholder="Barcode"
+                    class="p-2 border rounded-xl w-full">
+
+                <!-- بحث حسب الفئة -->
+                <select name="category_id" class="p-2 border rounded-xl w-full">
+                    <option value="">All Categories</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <div class="flex space-x-2 col-span-2">
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                        Zoeken
+                    </button>
+
+                    <a href="{{ route('products.index') }}" style="width: 130px"
+                        class="py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 text-center">
+                        Filter annuleren
+                    </a>
+                </div>
+
+            </form>
+        </div>
 
         @if ($products->isEmpty())
             <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg text-center mb-4">
